@@ -83,19 +83,19 @@
     - **Exam Tips**
         - Splunk component that let users write SPL queries ==> Search Head
 
-    - Forwarder Management
-        - Deployment server GUI accessible within Splunk Web
-        - Provides a way to configure deployment server and monitor updates
-    - License Manager
-        - Hosts licenses and assigns license volumne to other Splunk Components (License peers) in a distributed deployment
-        - License meter runs during indexing
-        - License Types:
-            - Volumne based
-            - Infrastructure based
-            - Access to Splunk features
-    - Monitoring Console
-        - Used to view topology and performance information about your Splunk deployment
-        - Monitor dashboards, use data from Splunk internal logs
+- Forwarder Management
+    - Deployment server GUI accessible within Splunk Web
+    - Provides a way to configure deployment server and monitor updates
+- License Manager
+    - Hosts licenses and assigns license volumne to other Splunk Components (License peers) in a distributed deployment
+    - License meter runs during indexing
+    - License Types:
+        - Volumne based
+        - Infrastructure based
+        - Access to Splunk features
+- Monitoring Console
+    - Used to view topology and performance information about your Splunk deployment
+    - Monitor dashboards, use data from Splunk internal logs
 
 - Splunk Web User Interface 
     - Access Splunk Web UI using a browser
@@ -142,8 +142,6 @@
 
 - Splunkbase
     - Download eventgen
-    - SHA256 checksum (eventgen_721.tgz)
-    - acbfa4dba41ff6d334e811418ef0ad3f79c6b516e855c7ab9c626bfc90cb0187
 
 - Settings
     - Knowledge
@@ -204,9 +202,6 @@
         - Role permissions. Which roles have minimum and maximum permissions
         - How many main roles in Splunk by default
             - min roles are user, power, admin
-
-        - userjin, userjin123
-        - userming, userming123
     - Question
         - Q1: Which of the following Splunk components typically resides on machines where data originates?
             - Forwarders are installed on host machines to collect data and send to Splunk for indexing.
