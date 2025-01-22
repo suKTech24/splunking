@@ -187,8 +187,7 @@
     - Roles 
         - admin
             - Access to all settings
-            - 
-        - can_delete
+            - can_delete
         - power
             - Have limited access to settings
             - Create and publish (share) knowledge objects
@@ -237,4 +236,79 @@
 
 ---
 
+<details>
+  <summary> Module 2 : Getting Data into Splunk </summary>
 
+- Ways to ingest data into Splunk
+    - What data to ingest into Splunk?
+        - Get data from files and directories
+            - Monitor files and directories
+            - Upload static files
+        - Get data from network sources
+            - Data that come over a network port
+            - Both TCP and UDP protocols are supported
+        - Get data from window sources
+            - Window event logs
+            - windows registry
+            - Windows management instrumentation (WMI)
+            - Active directory
+            - Performance Monitoring
+        - Get data from other sources
+            - API
+            - DB
+            - Metrics
+            - FIFO queues
+
+    - How to ingest data into splunk
+        - Use existing apps and add-ons: First check, if there is an existing add-ons
+            - e.g. Splunk add-on for windows
+            - Splunk add-on for AWS
+            - Splunk DB connect
+            - Splunk Stream
+        - Find apps and add-ons on Splunkbase
+        - Use forwarders to get data
+            - install forwarders on the sources generating data.
+            - Use Heavy Forwarders if more processing is needed before ingestion
+        - Use HTTP event collector (HEC)
+            - Use HEC to get data from source via HTTP or HTTPs protocol
+        - For custom data, use scripted or module inputs
+
+- Splunk index time process - end of end process consisting of three phases
+    - Input Phase
+        - Handled at the data source
+            - Universal forwarder
+            - HF
+        - data sources are open and read
+        - COnfigurations are applied to entire streams
+        - data sent out for indexing
+    - Parsing Phase
+        - Handled at :
+            - indexer
+            - heavy forwarder
+        - data is broken up into events
+        - Extract defaul metadata fields
+            - host
+            - source
+            - sourcetype
+            - index ( defaults to main )
+        - Identify and create timestamps
+        - Identify line termination
+    - Indexing Phase
+        - Handled at : 
+            - indexer
+        - Run license meter
+        - Build index data structures
+        - Write data to disk
+
+- Configuring data inputs
+
+- Adding training data - Overview
+
+- Adding Training data - upload files
+
+- Adding training data - Generating events
+
+- Quiz 
+
+</details>
+---
