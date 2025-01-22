@@ -15,7 +15,7 @@
         - Search head cluster deployer
         - License Manager
         - Monitoring Console
-    - https://www.aplura.com/splunk-best-practices/
+
 - Splunk Components
     - Splunk Forwarders
         - Universal forwarders ( for prods)
@@ -234,8 +234,10 @@
             - Splunk comes out-of-the box with 3 main roles: User, Power, Admin
         - Q13: What is the default web port used by Splunk?
             - Default port to access Splunk Web UI is 8000.
-        
 
+- Useful references
+    - https://www.aplura.com/splunk-best-practices/
+    - https://medium.com/@byanalytixlabs/understanding-the-splunk-architecture-key-components-and-best-practices-7f6161762328
 </details>
 
 ---
