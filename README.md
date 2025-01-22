@@ -1,0 +1,243 @@
+# Splunk Core Certified User
+
+
+---
+<details>
+  <summary> Module 1 : Splunk Basics </summary>
+
+- What is Splunk?
+- Basic Splunk Components
+    - Processing Components
+        - Forwarders, Indexers, Search Heads
+    - Management Components 
+        - Deployment server
+        - Indexer Cluser Manager
+        - Search head cluster deployer
+        - License Manager
+        - Monitoring Console
+    - https://www.aplura.com/splunk-best-practices/
+- Splunk Components
+    - Splunk Forwarders
+        - Universal forwarders ( for prods)
+            - Separate executable with reduced functionality
+            - Main function is to collect and send data
+        - Heavy forwarders
+            - Configure from full Splunk enterprise installation.
+            - Can parse and filter data before forwarding.
+
+    - Splunk Indexers (Search Peer)
+        - It is a splunk enterprise instance that processes and writes data into repositories as events
+        - Indexers can do processing
+            - Transform raw data into events (parsing)
+            - NOTE: Heavy forwarders can also parse data as well.
+            - Assign metada - source, sourcetype (json, csv, etc), host (host machine that is actually sending the data to the Splunk)
+            - Identify or create timestamps
+            - After all the processing is done, indexers will write data to data repositories known as indexes in disk.
+            - Default indexes
+                - Main
+                - _internal - Splunk own logs
+            - Repositories containing files with index data are called buckets.
+            - Example index structure
+
+            ```
+            Repositories
+            Home Path
+                Hot Bucket - data is actively ingested into hot bucket. Write only happen in Hot Bucket.
+                Warm Bucket
+            Cold Path
+                Cold Bucket - Retention. If reach over the retention period, data will be frozen. 
+            Thawed Path
+                Frozen to thawed buckets
+            ```
+        - Indexer Cluster
+            - Group indexers together to provide data replication
+            - Cluster Manager coordinates replication activities and manages the Cluster
+    - **Exam Tips**
+        - Splunk components that transforms raw data into events.
+            - Indexers
+            - Heavy forwarders
+        - Splunk components that saves data into disk
+            - ONLY indexers can write to Hot Bucket disk
+        - Licensing meter runs during indexing
+
+ - Search Head
+    - Allow users to write search queries (SPL) to search the indexed data
+    - Distributes search requests to the indexers and merges the result back to the user
+    - Extract fields and create other knowledge objects such as 
+        - Reports
+        - Alerts
+        - Visualizations
+        - Dashboards
+    
+    - Search Head Cluster
+        - Group search heads with identical configuration
+        - Search requests from users are balanced across Search Head (SH) group - load balancing
+        - Managed by a Cluster Captain
+            - Coordinates job scheduling among SH members
+            - Coordinates replication activities
+        - Cluster Deployer
+            - This is a management component that distributes apps and other configurations to Cluster members
+            - Distributes content, configuration, apps to other groups of Splunk instances (deployment clients)
+            - Distributed content is known as deployment apps
+            - Used mostly distribute apps to Splunk Forwarders
+    - **Exam Tips**
+        - Splunk component that let users write SPL queries ==> Search Head
+
+    - Forwarder Management
+        - Deployment server GUI accessible within Splunk Web
+        - Provides a way to configure deployment server and monitor updates
+    - License Manager
+        - Hosts licenses and assigns license volumne to other Splunk Components (License peers) in a distributed deployment
+        - License meter runs during indexing
+        - License Types:
+            - Volumne based
+            - Infrastructure based
+            - Access to Splunk features
+    - Monitoring Console
+        - Used to view topology and performance information about your Splunk deployment
+        - Monitor dashboards, use data from Splunk internal logs
+
+- Splunk Web User Interface 
+    - Access Splunk Web UI using a browser
+    - Default Splunk Enterprise port is 8000
+    - Local Machine : http://localhost:8000
+    - Remote Instance (VM) : http://<instanceIP address>:8000
+    - Provides access to Splunk features
+        - Available features depend on role of user
+        - Three main out of the box roles
+            - User
+            - Power
+            - Admin 
+    - Includes apps to extend functionality
+        - Default App examples:
+            - Home App
+            - Search & Reporting App
+        - Create Custom apps
+        - Download apps from Splunkbase
+
+    - **Exam Tips**
+        - Default port of Splunk web ==> 8000
+        - Splunk default app examples 
+            - Home App
+            - Search & Reporting App
+
+- Splunk Apps
+    - Splunk Apps are custom solutions that allow you to extend the functionality of the Splunk platform
+    - What can Splunk app do?
+        - Separate workspaces for different use cases to co-exist on single Splunk instance
+            - Alerts
+            - Reports
+            - Dashboards
+        - Custom configurations to ingest data
+        - Collections of 
+            - Data inputs
+            - UI elements
+            - Knowledge objects - fields extraction
+    - Where to find apps?
+        - Browse to find apps within Splunk Enterprise
+        - Splunkbase, https://splunkbase.splunk.com/
+    - **Exam Tips**
+        - What are the use cases of Splunk apps?
+        - Access Splunk apps in Splunkbase
+
+- Splunkbase
+    - Download eventgen
+    - SHA256 checksum (eventgen_721.tgz)
+    - acbfa4dba41ff6d334e811418ef0ad3f79c6b516e855c7ab9c626bfc90cb0187
+
+- Settings
+    - Knowledge
+        - Create and manage knowledge objects
+        - Major menu items available to user and power roles
+    - System
+        - System settings
+        - Licensing
+        - Restart Splunk from GUI
+    - Data
+        - Create indexes and configure data inputs
+        - Configure data forwarding and receiving
+    - Distributed environment
+        - Indexer clustering
+        - Forwarder management
+        - Data Fabric
+        - Federated search
+        - Distributed search 
+    - Exam tip
+        - What can be changed using account settings and preferences?
+            - full name, email, password, timezone, background screen, etc.
+
+- Search & Reporting App
+    - Default app that provides an interface to search, analyze and vistualize data in Splunk
+    - Search Bar - 
+    - App Navigation Bar
+    - Timerange
+    - Search modes
+        - fast mode
+        - smart mode
+        - verbose mode - least performance
+    - Search history
+    - Data summary
+        - Use the Data Summary tab to quickly learn about the data present in your Splunk deployment
+            - View count of events by :
+                - Hosts
+                - Sources
+                - SourceTypes
+    - Exam Tips
+        - Quick way to understand your data in your deployment.
+        - Fields present under data summary 
+- Splunk Roles and Users
+    - Roles 
+        - admin
+            - Access to all settings
+            - 
+        - can_delete
+        - power
+            - Have limited access to settings
+            - Create and publish (share) knowledge objects
+            - Assign to power users
+        - splunk_system_role
+        - user
+            - Limited access to settings
+            - Create private knowledge objects
+            - Assign to basic users
+    - Exam Tips
+        - Role permissions. Which roles have minimum and maximum permissions
+        - How many main roles in Splunk by default
+            - min roles are user, power, admin
+
+        - userjin, userjin123
+        - userming, userming123
+    - Question
+        - Q1: Which of the following Splunk components typically resides on machines where data originates?
+            - Forwarders are installed on host machines to collect data and send to Splunk for indexing.
+        - Q2: Which Splunk component transforms raw data into events and distributes the results to an index?
+            -  Indexer is the Splunk component that processes and writes data into repositories (indexes) as events.
+        - Q3: Which component of Splunk is primarily responsible for saving data?
+            - Indexer is the Splunk component that processes and writes data (saves data) into repositories (indexes) as events.
+        - Q4: Three basic components of Splunk are?
+            - Basic components are the processing components - Forwarder, Indexer, Search Head
+        - Q5: What is Splunk?
+            - Splunk is a software platform to search, analyze and vistualize the machine-generated data
+        - Q6: Which component of Splunk let us write SPL query to find the required data?
+            -  The Search Head allows users to write search queries using Splunk Search Processing Language (SPL) to search indexed data.
+        - Q7: Which of the following Splunk Components can perform log filtering/parsing?
+            - While universal forwarders can only collect and send data, heavy forwarders can parse and filter data.
+        - Q8: Which of the following is true about user account settings and preferences?
+            - You can configure Full name, Time zone and Default app under account settings and preferences in the account menu.
+        - Q9: A collection of items containing things such as data inputs, UI elements, and knowledge objects is known as what?
+            - Apps are collections of data inputs, UI elements, and knowledge objects.
+        - Q10: Splunk Apps are used for the following:
+            - 
+        - Q11: Which is a default app for Splunk Enterprise?
+            - Splunk comes out-of-the box with default apps such as Home App, Search & Reporting App.
+        - Q12: How many main roles do you have in Splunk?
+            - Splunk comes out-of-the box with 3 main roles: User, Power, Admin
+        - Q13: What is the default web port used by Splunk?
+            - Default port to access Splunk Web UI is 8000.
+        
+
+</details>
+
+---
+
+
