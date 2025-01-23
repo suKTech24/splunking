@@ -301,6 +301,44 @@
         - Write data to disk
 
 - Configuring data inputs
+    - Add data inputs using one of the followin methods
+        - Splunk Web
+        - CLI
+        - Config files - edit inputs.conf
+        - Apps and add-ons from Splunkbase
+    - Add data inputs using Splunk Web
+        - Upload
+            - Upload local files from your computer
+            - Only get indexed once
+        - Monitor
+            - Monitor files and directories, network ports, etc.
+            - Data located on Splunk enterprise instances
+            - Useful for testing
+        - Forward
+            - Get data from remote machines over receiving port
+            - Remote machines have forwarders installed
+            - Mostly used in production environments
+    
+- Configuring data inputs - upload
+    - select data source - file containing data to index
+    - select a matching sourcetype from list of pretrained sourcetypes
+        - sourcetype determined automatically but you can choose a different one from the dropdown.
+        - you can also create a new sourcetype name
+    
+    - Input settings
+        - Assing metadata values
+        - Pick an index you want to place the data in
+        - Review 
+    - Data sources are from splunk
+        - webserver 1, 2, 3
+            - access.log, secure.log
+        - localhost
+            - Eventgen app, eventgen.conf
+        - local host
+
+- Adding training data - generate events
+
+|Operating System| 
 
 - Adding training data - Overview
 
@@ -311,4 +349,62 @@
 - Quiz 
 
 </details>
+
 ---
+
+<details>
+  <summary> Module 3 :  </summary>
+
+
+</details>
+
+---
+
+<details>
+  <summary> Module 4 :  </summary>
+
+
+</details>
+
+---
+
+<details>
+  <summary> Module 5 :  </summary>
+
+
+</details>
+
+---
+
+<details>
+  <summary> Module 6 :  </summary>
+
+
+</details>
+
+---
+
+<details>
+  <summary> Module 7 :  </summary>
+
+
+</details>
+
+---
+
+<details>
+  <summary> Module 8 :  </summary>
+
+
+</details>
+
+---
+
+<details>
+  <summary> Module 9 :  </summary>
+
+
+</details>
+
+---
+
