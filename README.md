@@ -338,23 +338,65 @@
 
 - Adding training data - generate events
 
-|Operating System| 
-
+|Operating System| Default Splunk installation directory | Directory for app config files |
+|---|---|---|
+|Windows|C:\Program Files|Splunk|C:\Program files|Splunk\etc\apps|
+|Linux|/opt/splunk|/opt/splunk/etc/apps|
+|Mac OS|/Application/Splunk|/Application/Splunk/etc/apps|
 - Adding training data - Overview
-
 - Adding Training data - upload files
-
 - Adding training data - Generating events
 
-- Quiz 
+- **Quiz** - TB Added
 
 </details>
 
 ---
 
 <details>
-  <summary> Module 3 :  </summary>
+  <summary> Module 3 :  Basic Searching in Splunk</summary>
 
+- **Overview of Search & Reporting App**
+    - New Search, fields, mode, job, etc.
+- **Search with Keywords and Phrases**
+    - Use keywords and phrases to retrieve matched events from the index
+    - `index=main sourcetype=eventgen`
+    - Match is performed against raw events in the _raw field.
+    - To search matching phrases, use "double quotes" , "user ubuntu"
+    - Scenario 1: Search events that match the following keywords for all time. Check which index(es) these events belong to.
+        - invalid
+        - amanda
+        - Macintosh
+        - telco01
+    
+    - Scenario 2 : Search events that match the following quoted phrase for all time. Check which index(es) these events belog to.
+        - "user ubuntu"
+        - "failed password"
+        - "like gecko"
+        - "Mac OS"
+- **Use Wildcards**
+    - 
+
+- **Use Boolean Operators**
+    - 
+
+- **Use Search Assistant**
+    - 
+
+- **Identify Contents of search results**
+    - 
+
+- **Setting search time range**
+    - 
+
+- **Events Timeline**
+    - 
+
+- **Manage Search Jobs**
+    - 
+
+- **View Search History**
+    - 
 
 </details>
 
