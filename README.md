@@ -375,10 +375,61 @@
         - "like gecko"
         - "Mac OS"
 - **Use Wildcards**
-    - 
+  - Best practice, use Wildcards at the end of a term, e.g. pass*, fail*
+  - Avoid using wildcards in the following situations:
+    - Beginning of a string - *fail, *word
+        - ==> search will look at every string, i.e., scan all events.
+        - ==> can cause performance issues
+    - Middle of a string - http*buttercupgames.com
+        - ==> might cause inconsistent results especially in strings containing punctuation.
 
-- **Use Boolean Operators**
-    - 
+    - Scenario:
+        - Search events that match the following terms with wildcards for all time. Compare execution times.
+            - fail* with *fail
+            - pass* with *word
+            - http://www.buttercupgames.com with http*buttercupgames.com
+        - Check for time taken --> Job --> Inspect Job
+    - Exam tips : placement of wildcards in the search terms
+- **Use boolean expressions (AND, OR, NOT operators)**
+    - Boolean operators must be in uppercase
+    - AND operator is implied between terms. Do not need to be explicitly specified.
+        - Search for **failed passord** is the same as **failed AND password**
+        - Not operators applies tot he term immediately following NOT
+            - **user NOT administrator** ==> Search events that contain the word user and does not contain the word administrator
+    - Scenario
+        - Search events that match the following terms with Boolean operators for all time
+            - failed password == failed AND password
+            - invalid or macintosh
+            - (www1 or www2) user amanda == (www1 or www2) AND user AND amanda
+    - Exam tips
+        - Which boolean operator is implied.
+        - How to combine search terms with Boolean operators
+        - Booleans in uppercase
+    - Use Search Assistant - helps with writing searches by providing selections to complete search strings:
+        - Marching terms in indexed data
+        - Matching searches based on recent search history
+        - Shows list of commands after first pipe (|)
+        - You can select a term from the list to add to the search
+        - Mouse over a command to get more info about the command
+        - Search assistant also provides guidance to match parenthesis as you type.
+            - When end parenthesis is typed, correspoinding beginning parenthesis is highlighted.
+        - Search assistant is enabled by default, but can be disabled. Three modes:
+            - full mode
+                - Additionally displays count of how many times a term appears in indexed data.
+                - Can be toggled using "Auto Open" option
+            - compact mode - default
+            - None (disable)
+    - Scenario
+        - Verify that the default search assistant mode is Compact.
+        - Type the following keywords on the search bar to vertify search assistant:
+            - Use - check for matching terms in indexed data.
+            - (www1 - check for matching searches run rcently
+                - select a recent search with parenthesis. Verify matching start parenthesis
+            - telco01 | ==> check for commands after the pipe.
+                - Mouse over a command to get information.
+        - Change the search assistant mode to Full and verify that count of terms for search above.
+        - Use the Auto Open option to toggle Full mode
+        - Disable search assistant and verify that there are no selections provided for searches.
 
 - **Use Search Assistant**
     - 
