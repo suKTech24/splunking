@@ -432,13 +432,68 @@
         - Disable search assistant and verify that there are no selections provided for searches.
 
 - **Use Search Assistant**
-    - 
+    - Search assistant helps with writing searches by providing selections to complete search strings.
+    - You can select a term from the list to add to the search.
+    - Mouse over a command to get more info about the command.
+    - Search assistant is enabled by default but can be disabled. Three modes : 
+        - Compact (default)
+        - Full - get more info than compact mode.
+        - None (disable)
+    - Pipe character ==> you want command right after | 
+    - e.g. `telco01 | stats count`
 
 - **Identify Contents of search results**
-    - 
-
+    - timestamp
+    - Splunk also extracts metadata fields at index time
+        - host
+        - source
+        - sourcetype
+        - index
+    - Selected fields 
+    - Terms that match the search are highlighted in search results.
+    - When you click an item in the search results, you can drilldown to the following:
+        - Add to search
+        - Exclude from search
+        - New search
+    - Exam tips
+        - Order of search results is reverse chronological order
+        - Actions when clicking item on search results
+        - Search result display options ==> raw, list, table
+        - Metadata fields
 - **Setting search time range**
-    - 
+    - Presets
+        - real time
+        - relative (historical)
+        - other
+    - Default time picker selection is last 24 hours
+    - Time modifiers
+        - earliest - `-24@h`
+        - latest - `now`
+        - It will overwrites the time range picker value
+    - Relative time examples
+        - earliest =-24h latest=now
+        - earliest=-24h@h latest=now
+    - Absolute time example
+        - earliest=09/03/2024:00:00:00 latest=09/04/2023:23:00:00
+        - s seconds
+        - m minutes
+        - d days
+        - h hours
+        - w weeks
+        - mon months
+        - y years
+    - Snapping always rounds down to the nearest time unit specified 
+        - If current time is 10:42:07, -4hr@h looks back to 06:00:00
+        - If current time is 15:38:12, -30m@h looks back to 15:00:00 
+    - Exam Tips
+        - What UI component that allows for time selection - time range picker
+        - setting time range using earliest and latest
+        - time range picker options
+            - presets, relative, real time, date range, date and time range, advanced
+        - time unit abbreviations
+            - s, m, d, h, w, mon, y
+        - Difference between real-time and relative time   
+            - real time vs historial 
 
 - **Events Timeline**
     - 
