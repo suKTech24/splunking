@@ -494,22 +494,106 @@
             - s, m, d, h, w, mon, y
         - Difference between real-time and relative time   
             - real time vs historial 
+    - earliest=-7d@d latest=now
+    - earliest=-7d@d latest=0d
+    - host01 OR host09 earliest=02/01/2025:05:00:00 latest=02/01/2025:14:00:00
 
 - **Events Timeline**
-    - 
+    - Bin size (scale) of the timeline is shown on the legend
+    - Formatting timeline
+        - Hidden - hids the timeline
+        - Compact - no labels on axis
+        - Full
+        - Linear scale
+        - Log scale 
+
+    - Zoom options
+        - Zoom out 
+            - Increases the size of the time bin in the legend. Re-executes the search 
+        - Zoom to selection
+            - Select a few bars and click `zoom to selection` to zoom in.
+            - Decreases the size of bin
+            - Re-executes the search
+        - Deselect 
+            - Cancel a selection 
+    - Exam tips
+        - Function of events timeline
+        - Using click and drag on timeline
+        - Timeline controls: Format, zoom out, zoom to selection, Deselect
 
 - **Manage Search Jobs**
-    - 
+    - Every search you run is a job and generates a job Id
+    - Job menu 
+        - Change job settings
+        - Send job to background
+        - Inspect job 
+        - Delete job 
+    - Pause/Resume job
+        - Pause a job while it's running and resume to finalize 
+    - Stop job 
+        - Will generate partial results
+    - Share job 
+        - Provides a link to bookmark or copy/share job
+        - Extend retention of results to 7 days from default of 10 mins.
+        - Give read permissions to everyone.
+    - Export job 
+        - Export search results as raw events (text file), CSV, XML, json
+        - After using a transforming command, you no longer have raw events. ONLY CSV, XML, JSON available
+    - Print job 
+        - Print results or save as PDF 
+
+    - Edit Job settings
+        - permissions
+            - by default, only owner can view the job (private).
+            - When you share job link, read access is provided to everyone 
+        - lifetime 
+            - default job lifetime is 10mins.
+            - When you share job link, lifetime is automatically extended to 7 days.
+            - To keep results longer, save job as a report. 
+    - Access saved Jobs
+        - Activity -> Jobs
+        - Show jobs run within last 10 mins (default)
+        - Show jobs with lifetime extended to 7 days
+        - To view jobs results, click on job link 
+    - Exam tips 
+        - default time to retain search job - 10 mins 
+        - how to keep search results longer than 7 days - save the job as report 
+        - What can you configure with job settings menu?
+            - permission, job lifetime
+        - Job details on activity menu 
+        - 
 
 - **View Search History**
-    - 
+    - Contains a list of most recently run ad-hoc searches
+    - Use filter to find specific previously run searches
+    - By default, contains 20 searches per page
+    - Use time filter to set the Timerange
+    - Use Add to search to run a previously run search 
+
 
 </details>
 
 ---
 
 <details>
-  <summary> Module 4 :  </summary>
+  <summary> Module 4 :  Using fields in Searches</summary>
+
+- **What are fields?**
+
+
+- **Using the Fields sidebar** 
+
+- **Using fields in searches**
+
+- **Boolean Operators** 
+
+- **Comparison Operators** 
+
+- **Difference between != and NOT** 
+
+- **Search modes**
+
+- **Search best practices** 
 
 
 </details>
