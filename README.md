@@ -579,9 +579,85 @@
   <summary> Module 4 :  Using fields in Searches</summary>
 
 - **What are fields?**
+    - Fields are searchable name/value pairs in your event data.
+    - Searches using fields are more efficient than searches using keywords or quoted phrases
+    - Fields can be extracted from data at index time and at search time
+        - Index-time extractions
+            - metadata fields : host, source, sourcetype, index.
+            - Internal fields : _time, _raw, etc.
+            - Custom Fields
+        - Search-time extractions
+            - Field discovery
+                - automatically discover fields based on sourcetype and name/value pairs in your data
+                - Enabled by default
+                - In Fast mode, field discovery is disabled. You will see fields that are extracted at index time.
+            - Custom fields
+            - Ad-hoc search
+    - Most data vendors have documentation for field name/value mappings that can be used to define extractions in Splunk 
 
+    - Demo 
+        - Run the query ==> "index=web sourcetype=access_combined" for all time
+        - Identify metadata fields host, source, sourcetype, index and internal fields _time, _raw
+        - Change search mode to Fast to disable field discovery. Revert to re-enable field discovery 
+        - Identify data-specific fields for clientip, categortyId, status
+    - Exam Tips:
+        - Describe field discovery
+        - Understand index and search time fields
+        - Metadata fields
+        - Internal fields 
+
+        ```
+            index=web sourcetype=access_combined
+            | table _time, _raw
+        ```
 
 - **Using the Fields sidebar** 
+    - Fields sidebar displays fields discovered in your events.
+    - Fields groupings
+        - Selected Fields
+        - Interesting fields
+    - Selected fields
+        - By default, selected fields are host, source and sourcetype 
+        - Can be configured to add/remove fields
+        - Listed under every event.
+    - Interesting Fields
+        - Fields that appears in at least 20% of your events.
+        - Can making Interesting Field as a selected field and vice versa 
+    - All fields
+        - Use this to see all fields in events
+        - Will also include fields that appear in less than 20% of Events
+    - Field characteristics 
+        - If starts with #, it is numeric fields
+        - If starts with a, it is Alphanumeric fields
+        - If you see numbers next to the fields, it counts the unique values 
+    - To make any field as a selected field:
+        - Click on "All Fields"
+        - Click the checkbox to the left of the field you want
+        - FIeld will now show up in Selected fields list 
+    - Field Window Shows   
+        - Top 10 values of the field by count and percentage
+        - Reports 
+            - top values
+            - top values by time - timechart of top values 
+            - rare values - stats and Visualizations of bottom 20 values
+            - Events with field - all events containing this field 
+        - If field is an interesting field, click "Yes" to make it a selected field 
+    - Demo 
+        - Run the query "index=web sourcetype=access_combined" for All time 
+        - Identify selected fields and confirm they show up under each event
+        - Change JSESSIONID field from an interesting field to a selected field
+        - Revert JSESSIONID to an interesting field. Make it a selected field using the "All Fields" option.
+        - Identify numeric and Alphanumeric fields on the fields sidebar 
+        - Click on productid field to check top 10 values. Open each report associated with this field 
+        - Click on the numeric field status and confirm/vertify the following 3 additional reports:
+            - Average over time 
+            - Maximum value over time 
+            - Minimum value over time 
+    - Exam Tips 
+        - Add fields to the field sidebar
+        - Numeric, Alphanumeric fields, count of unique values
+        - Default selected fields
+        - Reports in field window 
 
 - **Using fields in searches**
 
