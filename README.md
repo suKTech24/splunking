@@ -660,32 +660,155 @@
         - Reports in field window 
 
 - **Using fields in searches**
+    - Search syntax is <field_name>=<field_value>
+    - Using fields to search is more efficient than using keywords and quoted strings 
+        - Use quotation marks for field names with spaces
+        - `index=web fullName="Jane Austin"`
+        - Case Sensitivity
+            - fields names are case sensitive
+                - `index=web action=addtocart`
+                - `index=web Action=addtocart`
+            - fields values not NOT case sensitive
+                - `index=web action=addtocart`
+                - `index=web action=ADDTOCART`
+        - You can use wildcards with fields
+            - `index=web action=addtocart JSESSION=SD2*`
+        - You can use Boolean operators AND, OR, NOT with Fields
+            - spce between is NOT
+            - `index=main sourcetype="eventgen" (nodeName=host05 OR nodeName=host06) NOT partner=Telco04`
+        - !, !=, >, < , <=, >=
+    - Wildcards 
+        - Use wildcards to match an unlimited number of characters in a field value
+        - Wildcards can be used at the start, Middle and end of a field value 
+        - Best practices
+            - Avoid using wildcards at the beginning - all events will be scanned causing performance issues
+            - Avoid using wildcards in the middle - will cause inconsistent results 
+    - For fields with IP addresses, you can search with CIDR format 
+        - Specify network IP and subnet mask : userIPAddress="192.168.180.0/24"
+        - `index=main sourcetype=eventgen userIPAddress="192.168.180.0/24"`
+    - Exam tips
+        - Case Sensitivity of field names and values 
+    - Demo
+        - Run this query `index=main sourcetype=eventgen partner=telco04` for last 60 mins
+        - To verify case Sensitivity, search with 
+            - PARTNER=telco04 - Notice no results generated.
+            - partner=TELCO04 - Notice results generated 
+        - Using wildcards, find all numbers starting with 710 and all response codes starting with 4
+        - Narrow the search down to all /24 IP addresses starting with 192.168.143 using:
+            - Wildcards 
+            - CIDR notation 
 
 - **Boolean Operators** 
+    - AND operator is implied.
+    - Boolean operators are always uppercase. Narrow down the searches and improve performance
+        - `index=web sourcetype=access_combined (host=Webserver1 OR host=Webserver2) NOT action=remove`
+        - `index=web AND sourcetype=access_combined AND (host=Webserver1 OR host=Webserver2) NOT action=remove`
+    - Exam Tips 
+        - Which boolean operator is implied
+        - Case of boolean operators 
+        - Searches using boolean operators 
+    - Demo 
+        - Run the query `index=web sourcetype=access_combined` for last ALL Time 
+        - Retrieve only events from Webserver1 and Webserver2
+        - Exclude events that have action field value equal remove 
+        - Insert AND operator in the query and verify results are the same 
 
 - **Comparison Operators** 
+    - Demo 
+        - Run the query `index=web sourcetype=access_combined` for last ALL time 
+        - Retrieve only events from webserver1 and Webserver2
+        - Events having number of bytes greater than or equal to 3000
+        - Exclude events with action field value of remove 
+        - Events with status > 200 < 500
 
 - **Difference between != and NOT** 
-
+    - Both operators can be used to exclude events from your search 
+    - In practice, they can produce different results. Example:
+        - NOT will search : 
+            - All events where action field exists, and value is different from remove 
+            - All events where action field does not exist 
+        - != will only search 
+            - All events where action field exists, and value is differen from remove 
 - **Search modes**
+    - Fast mode
+        - Best performance, speed over completeness
+        - Field discovery disabled
+        - No event list when using transforming commands 
+    - Smart mode (default)
+        - Balance speed and completeness
+        - Field discovery is enabled
+        - Behaves like fast mode when using transforming commands
+    - Verbose Mode 
+        - More data, least performance, completeness over speed
+        - FIeld discovery is enabled
+        - Shows event list when using tranforming commands
 
 - **Search best practices** 
-
+    - Specify indexes at the beginning of the search string 
+        - can search without indexes but it is more efficient when specify them 
+        - Examples 
+            - index=main 
+            - `index=web or index=security`
+    - Avoid using wildcards at the beginning or middle of your search string, use * at the end
+    - Use OR instead of wildcards when possible 
+        - `process=su OR process=sudo`
+    - Better to use inclusion than exclusion 
+        - Inclusion : action=addtocart
+        - Exclusion : NOT action=addtocart
+    - Include as many search terms as possible to narrow down your results
+    - Specify time to narrow down the results of your search. This is the most efficient filter 
+    - Make your search terms as specific as possible
+        - search for `Jane Austin`, inseat of `Jane`
+    - Use filters as early as possible, eg. index=, sourcetype=, etc
 
 </details>
 
 ---
 
 <details>
-  <summary> Module 5 :  </summary>
+  <summary> Module 5 : Search Language Fundamentals </summary>
 
+- **Search language components, syntax and pipeline**
+
+- **Search pipeline readability**
+
+- **Fields command**
+
+- **Table and rename commands**
+
+- **Sort command**
+
+- **Dedup command**
+ 
 
 </details>
 
 ---
 
 <details>
-  <summary> Module 6 :  </summary>
+  <summary> Module 6 : Basic Transforming commands </summary>
+
+- **What are transforming commands?**
+
+- **Using the stats command**
+
+- **Stats count function** 
+
+- **stats discint_count function** 
+
+- **stats sum and avg functions** 
+
+- **stats list and values functions** 
+
+- **combining functions** 
+
+- **using the top command** 
+
+- **using the rare command**
+
+- **formatting statistics tables** 
+
+- **Formatting visualisations** 
 
 
 </details>
