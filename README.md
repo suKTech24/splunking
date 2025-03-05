@@ -769,18 +769,97 @@
   <summary> Module 5 : Search Language Fundamentals </summary>
 
 - **Search language components, syntax and pipeline**
-
+    - Search terms - basic search 
+    - Apply search terms to retrieve data from the index(s)
+        - keywrods, phrases, wildcards, booleans, etc.
+    - Apply commands to events retrieved by Search Terms
+        - Commands 
+            - specifies what to do with results retrieved
+            - Calculat statistics, generate charts, evaluate new fields, etc.
+        - functions
+            - Defines how to perform a task required by the command
+            - Function arguments provide the variables needed for the function to work 
+        - arguments
+            - variables needed for the command to work 
+            - Example: Command arguments can limit the number of results 
+        - Clauses
+            - Group or rename fields in your results 
+    - A series of commands can be applied to data retrieved from the index 
+        - Commands separated by pipe | character 
+        - Next command applied to intermediate results by previous command
+        - This is known as the search pipeline 
+    - Example 
+        - `index=main sourcetype=eventgen | eval callResult=if(responseCode==200, "Success", "Failure") | stats count BY callResult | rename callResult AS finalResult`
+        - Clauses
+            - BY callResult 
+            - AS finalResult
+        - Function arguments
+            - responseCode == 200, "Success", "Failure"
+        
 - **Search pipeline readability**
+    - Change the search bar theme - Preferences -> SPL Editor -> Themes 
+        - Light Theme 
+        - Dark theme 
+        - Black on White
+    - Activate search auto-format 
+        - When enabled, each pipe character appears on a Separate line. This improves readability.
+    - Add line numbers 
+        - Line numbers will show next to each line in the search pipeline
+    - Commands are in BLUE - eval, top, rename
+    - Functions are in Purple - if, count 
+    - Booleans and Clauses (command modifiers) are in Orange - AND, OR, NOT 
+    - Command arguments are in Green - limit , span 
 
+    ```
+        index=main sourcetype=eventgen (nodeName=host01 OR nodeName=host02) NOT partner=Telco07 
+        | eval CallResult=if(responseCode==200, "Success", "Failure")
+        | top limit=0 CallResult
+        | rename CallResult AS finalResult
+    ```
 - **Fields command**
-
+    - Use the fields command to filter list of fields returned in search results
+    - NOte that internal fields _raw and _time (timestamp) are returned by default
+        - To include fields: 
+            - Use fields ( or fields +) - default behaviour 
+            - Only the specified fields are extracted.
+            - Performance improvement on field extractions
+        - To exclude fields 
+            - Use fields - 
+            - Happens after field extractions - no performance improvement 
 - **Table and rename commands**
-
+    - Table command creates a statistics table of the specified fields
+    - Each row of the table represents an event, and the columns represent field names 
+    - Columns are displayed in the order given in the command 
+    - Use rename command to change the name of a field 
+        - `rename method as "HTTP method", status as "HTTP status", clientip as Client_IPAddress`
+        - Use double quotes when field names include spaces or special characters 
+    ```
+        index=web sourcetype=access_combined
+        | table clientip, bytes, status, method, productId
+        | rename method as "HTTP method", status as "HTTP status", clientip As CLient_IPAddress
+    ```
 - **Sort command**
-
+    - Sort search results by specified fields
+    - To sort in ascending order:
+        - Use sort + <fieldname>
+    - TO sort in descending order:
+        - Use sort - <fieldname>
+    - Use the limit argument to limit the number of results 
+        - sort 20 - "HttP method"
+    - To sort on multiple fields, use a space after a sort sign as per the fields order you want to sort
+        - `sort -Client_IPAddress, "HTTP Method"`
+        - `sort - Client_IPAddress, "HTTP Method"`
+    ```
+        index=web sourcetype=access_combined
+        | table clientip, bytes, status, method, productId
+        | rename method as "HTTP method", status as "HTTP status", clientip As CLient_IPAddress
+        | sort - CLient_IPAddress, "HTTP status" limit 10
+    ```
 - **Dedup command**
- 
-
+    - Removes deuplicates from your results 
+    - `dedup CLIent_IPAddress`
+    - Uses identical combinations of field values 
+        - `dedup Client_IPAddress, "HTTP Method"`
 </details>
 
 ---
