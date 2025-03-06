@@ -868,7 +868,15 @@
   <summary> Module 6 : Basic Transforming commands </summary>
 
 - **What are transforming commands?**
-
+    - Transforming commands are used to order search results into a table 
+    - The transformed data can be used to create vistualizations.
+    - Splunk Enterprise ships with multiple visualization types :
+        - Charts - Line, Area, Column, Bar, Pie, Scatter, Bubble 
+        - Gauges : Radial, Filler, Marker
+        - Maps - Cluster, Choropleth
+        - Single Value 
+    - Transforming command examples : 
+        - table, stats, top, rare, chart, timechart 
 - **Using the stats command**
 
 - **Stats count function** 
