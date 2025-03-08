@@ -878,12 +878,80 @@
     - Transforming command examples : 
         - table, stats, top, rare, chart, timechart 
 - **Using the stats command**
+    - Use the stats command to perform statistical calculations on the data retrieved by search 
+    - It's a requirement to use the stats command with statistics functions 
+    - Statistics function examples : 
+        - count 
+            - counts the number of events 
+            - use count() to count the number of events matching the argument
+        - distinct_count, dc - count the number of unique values for a specified field 
+        - sum - calculate the sum of values in a numeric field 
+        - avg - calculate average of values in a numeric field 
+        - list - list all values of a given field 
+        - values - list all unique values of a given field 
+        - max 
+        - min - min value of a numeric field 
+
+    - Exam tips 
+        - Identify functions used with stats command 
 
 - **Stats count function** 
-
+    - Use the count function to return the number of events for current search 
+    - Associates the number of results to count field by default 
+    - To rename the count field, use the `AS` clause 
+    - Passing field name as argument - count(fieldname)
+        - Counts the number of events containing fieldname 
+        - Example : count(zipCode)
+    ```
+        index=main sourcetype=eventgen
+        | stats count(zipCode) as "Total Events with ZipCode"
+    ```
+    - Use the `BY` clause to return the count for different field combinations
+    - Can use any number of fields in your events 
+    ```
+        index=main sourcetype=eventgen
+        | stats count as "Total Events" by nodeName
+    ```
+    - Sort and give top 20 values 
+    ```
+        index=main sourcetype=eventgen
+        | stats count(failureCode) as "Total Failure Code Counts" by nodeName, partner
+        | sort 20 - "Total Failure Code Counts"
+    ```
 - **stats discint_count function** 
-
+    - Use discint_count or dc() to get the unique values for a given field.
+    - Example : How many different zip codes exist in the result set.
+    ```
+        index=main sourcetype=eventgen
+        | stats distinct_count(zipCode) as "Number of zip codes", distinct_count(failureCode) as "Number of failure code"
+    ```
+    - Exam tips : 
+        - Which command provides count of unique values?
+        - Syntax of stats command with distinct_count function
 - **stats sum and avg functions** 
+    - Use sum() function to get the sum of values in a numeric field 
+    - Use avg() function to get the average of values in a numeric field 
+    - Demo 
+        - Calculate the total duration of calls (in seconds) by partner, for calls with responseCode=200, in last 4 hours.
+            - Round to seconds by removing millisection fraction. 
+            - Convert the total time to Hours:Mins:Secs using the tostring function 
+        - Calculate the average duration of calls (in seconds) by partner, for calls with responseCode=200, in last 24 hours.
+            - Round to a precision of 2.
+            - Convert the average time to Hours:Mins:Secs using the tostring function 
+    ```
+        index=main sourcetype=eventgen
+        | stats sum(duration) as TotalCallTime by partner
+        | eval TotalCallTime=round(TotalCallTime)
+        | eval "Duration by partner"=tostring(TotalCallTime, "duration")
+    ```
+    - tostring() function - https://docs.splunk.com/Documentation/SCS/current/SearchReference/ConversionFunctions?#tostring.28.26lt.3Bvalue.26gt.3B.2C_.26lt.3Bformat.26gt.3B.29
+
+    ```
+        index=main sourcetype=eventgen responseCode=200
+        | stats avg(duration) as AvgCallTime By partner
+        | eval AvgCallTime=round(AvgCallTime,2)
+        | eval "Avg Duration by Partner"=tostring(AvgCallTime, "duration")
+    ```
 
 - **stats list and values functions** 
 
