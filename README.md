@@ -954,10 +954,48 @@
     ```
 
 - **stats list and values functions** 
+    - Use the list() function to list all values of a given field 
+        - Duplicate field values will be included if available
+    - Use the values() function to list unique values of a given field
+        - Duplicates will be removed
 
+    ```
+        index=main sourcetype=eventgen
+        | stats list(responseCode) as "Response Codes"
+    ```
+
+    ```
+        index=main sourcetype=eventgen
+        | stats values(responseCode) as "Response Codes"
+    ```
+    - **Tasks**
+        - List the values of failureCOde for each partner over the last 4 hours. Rename this field as "Errors per Partner"
+        - List the unique values of failureCOde for each partner over the last 4 hours. Rename this field as "Unique Errors per Partner"
+    
+    ```
+        index=main sourcetype=eventgen
+        | stats values(failureCode) as "Failure Code" by partner
+    ```
 - **combining functions** 
+    - Multiple functions can be combined into a single stats command
+    - Apply the by clause to all functions in the command
+    ```
+        index=main sourcetype=eventgen
+        | stats count as "Total Events", count(zipCode) as "Total Events with zipcode", dc(zipCode) as "Number of zip codes", sum(duration) as TotalCallTime, avg(duration) as AvgCallTime by partner
+        | eval TotalCallTime=tostring(round(TotalCallTime), "duration"), AvgCallTime=round(AvgCallTime,2)
+    ```
 
 - **using the top command** 
+    - returns a stats table for top(most common) values of a field
+    - display outout with default fields
+        - field_name associated with top command
+        - e.g. responseCode
+
+    ```
+        index=main sourcetype=eventgen
+        | top responseCode
+        | eval percent=round(percent,2)
+    ```
 
 - **using the rare command**
 
